@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <title>giphy</title>
 </head>
-
 <body>
   <html lang="en">
-
   <head>
     <meta charset="utf-8">
     <title>Favorite Movies</title>
@@ -21,55 +18,51 @@
       }
     </style>
   </head>
-
   <body>
-
     <div class="container">
-      <h1>Video Games</h1> s
+      <h1>Video Games</h1>
       <div id="buttons-view"></div>
-
       <form id="videoGame-form">
         <label for="videoGame-input">Add a Video Game</label>
-        <input type="text" id="videoGame-input"><br>
-
-
+        <input type="text" id="videoGame-input">
+        <br>
         <input id="add-videoGame" type="submit" value="Add a Video Game">
       </form>
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script type="text/javascript">
-  var videoGame = ["DCvsUniverse", "PacMan", "MarioBro"];
+        var videoGame = ["Batman", "PacMan", "Mario"];
 
-  renderButtons();
-  $("button").on("click", function() {
-  var test = $(this).attr("data-name");
-  console.log(test);
+        renderButtons();
+        $(document).on("click",".game",function () {
+          var test = $(this).attr("data-name");
+          console.log(test);
+          var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + test + "&api_key=dc6zaTOxFJmzC&limit=10";
+          // Creating an AJAX call for the specific movie button being clicked
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).done(function (response) {
+            var videoDiv = $("<div class = 'game'>")
+            var data = response.data;
+            for (var i = 0; i < data.length; i++) {
+            console.log(response.data)
+              var move = data[i].images.fixed_height.url;
+              var frozen = data[i].images.fixed_height_still.url;
+                console.log("Frozen " +frozen);
+                console.log("-----------------");
+                console.log("Move "+ move);
+
+              var coolImg = $("<img>").attr("src", frozen);
+              videoDiv.append(coolImg);
+              $("#buttons-view").prepend(videoDiv);
 
 
-
-
-        // function alertGameName() {
-        //   var gameName = $(this).attr("data-name");
-        // }
-
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + test + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-        // Creating an AJAX call for the specific movie button being clicked
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).done(function(response) {
-          console.log(response.data)
-
-
-
-  });
-    });
-
+            }
+          });
+        });
         function renderButtons() {
           $("#buttons-view").empty();
           for (var i = 0; i < videoGame.length; i++) {
-
             var a = $("<button>");
             a.addClass("game");
             a.attr("data-name", videoGame[i]);
@@ -77,21 +70,14 @@
             $("#buttons-view").append(a);
           }
         }
-
-        $("#add-videoGame").on("click", function(event) {
+        $("#add-videoGame").on("click", function (event) {
           event.preventDefault();
           var game = $("#videoGame-input").val().trim();
           videoGame.push(game);
           renderButtons();
-
-});
-      //  $(document).on("click", ".game", alertGameName);
-
-
+        });
+        //  $(document).on("click", ".game", alertGameName);
       </script>
     </div>
-
-
   </body>
-
   </html>
