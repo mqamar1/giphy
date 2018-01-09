@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>giphy</title>
 </head>
+
 <body>
   <html lang="en">
+
   <head>
     <meta charset="utf-8">
-    <title>Favorite Movies</title>
+    <title>Video Games</title>
     <style type="text/css">
       button,
       div,
@@ -18,6 +21,7 @@
       }
     </style>
   </head>
+
   <body>
     <div class="container">
       <h1>Video Games</h1>
@@ -30,10 +34,10 @@
       </form>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script type="text/javascript">
-        var videoGame = ["Batman", "PacMan", "Mario"];
+        var videoGame = ["Contra", "Pac Man Games", "Mario Brothers"];
 
         renderButtons();
-        $(document).on("click",".game",function () {
+        $(document).on("click", ".game", function() {
           var test = $(this).attr("data-name");
           console.log(test);
           var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + test + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -41,25 +45,25 @@
           $.ajax({
             url: queryURL,
             method: "GET"
-          }).done(function (response) {
-            var videoDiv = $("<div class = 'game'>")
+          }).done(function(response) {
+            var videoDiv = $("<div class = 'game1'>")
             var data = response.data;
             for (var i = 0; i < data.length; i++) {
-            console.log(response.data)
+              console.log(response.data)
               var move = data[i].images.fixed_height.url;
               var frozen = data[i].images.fixed_height_still.url;
-                console.log("Frozen " +frozen);
-                console.log("-----------------");
-                console.log("Move "+ move);
+              console.log("Frozen " + frozen);
+              console.log("-----------------");
+              console.log("Move " + move);
 
               var coolImg = $("<img>").attr("src", frozen);
               videoDiv.append(coolImg);
               $("#buttons-view").prepend(videoDiv);
 
-
             }
           });
         });
+
         function renderButtons() {
           $("#buttons-view").empty();
           for (var i = 0; i < videoGame.length; i++) {
@@ -70,14 +74,22 @@
             $("#buttons-view").append(a);
           }
         }
-        $("#add-videoGame").on("click", function (event) {
+        $("#add-videoGame").on("click", function(event) {
           event.preventDefault();
           var game = $("#videoGame-input").val().trim();
           videoGame.push(game);
           renderButtons();
         });
-        //  $(document).on("click", ".game", alertGameName);
+
+        // $("<img>").on("click", function(){
+        //   if ("<img>"===frozen){
+        //     $(this).attr(data[i], $(this).attr("scr", move));
+        //     $(this).attr(data[i], move)
+        //
+        //   }
+        // });
       </script>
     </div>
   </body>
+
   </html>
