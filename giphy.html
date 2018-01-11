@@ -34,14 +34,15 @@
       </form>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script type="text/javascript">
+      $(document).ready(function(){
+
         var videoGame = ["Contra", "Pac Man Games", "Mario Brothers"];
 
         renderButtons();
         $(document).on("click", ".game", function() {
           var test = $(this).attr("data-name");
-          console.log(test);
+          //console.log(test);
           var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + test + "&api_key=dc6zaTOxFJmzC&limit=10";
-          // Creating an AJAX call for the specific movie button being clicked
           $.ajax({
             url: queryURL,
             method: "GET"
@@ -49,17 +50,38 @@
             var videoDiv = $("<div class = 'game1'>")
             var data = response.data;
             for (var i = 0; i < data.length; i++) {
-              console.log(response.data)
+            //  console.log(response.data)
               var move = data[i].images.fixed_height.url;
               var frozen = data[i].images.fixed_height_still.url;
-              console.log("Frozen " + frozen);
-              console.log("-----------------");
-              console.log("Move " + move);
+
+              //console.log("Frozen " + frozen);
+              //console.log("-----------------");
+            //  console.log("Move " + move);
 
               var coolImg = $("<img>").attr("src", frozen);
               videoDiv.append(coolImg);
               $("#buttons-view").prepend(videoDiv);
+              $(document).on("click", "img", function(){
+                if ("img"===frozen){
 
+                    $(this).attr("src", $(this).attr(frozen));
+                    $(this).attr("src", frozen);
+                  }
+                    else{
+                    $(this).attr("src", $(this).attr(move));
+                    $(this).attr("src", move);
+                  }
+
+
+
+                  //  else if
+                  //   $(this).attr("src", $(this).attr(frozen));
+                  //   $(this).attr("src", frozen);
+                  // }
+
+
+                console.log("click")
+              });
             }
           });
         });
@@ -81,13 +103,8 @@
           renderButtons();
         });
 
-        // $("<img>").on("click", function(){
-        //   if ("<img>"===frozen){
-        //     $(this).attr(data[i], $(this).attr("scr", move));
-        //     $(this).attr(data[i], move)
-        //
-        //   }
-        // });
+
+        });
       </script>
     </div>
   </body>
