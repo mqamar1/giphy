@@ -61,24 +61,16 @@
               var coolImg = $("<img>").attr("src", frozen);
               videoDiv.append(coolImg);
               $("#buttons-view").prepend(videoDiv);
-              $(document).on("click", "img", function(){
+              coolImg.on("click", function(){
                 if ("img"===frozen){
 
-                    $(this).attr("src", $(this).attr(frozen));
-                    $(this).attr("src", frozen);
+                    $(this).attr("src", move);
+                    $(this).attr("src", $(this).attr(move));
                   }
                     else{
-                    $(this).attr("src", $(this).attr(move));
+                    //$(this).attr("src", $(this).attr(move));
                     $(this).attr("src", move);
                   }
-
-
-
-                  //  else if
-                  //   $(this).attr("src", $(this).attr(frozen));
-                  //   $(this).attr("src", frozen);
-                  // }
-
 
                 console.log("click")
               });
